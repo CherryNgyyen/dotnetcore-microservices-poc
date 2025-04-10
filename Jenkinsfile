@@ -68,9 +68,9 @@ pipeline {
 
                     // Publish the test results for each project
                     // junit '**/TestResults/ProductService_TestResults.trx'  // Display ProductService test results
-                    junit '**/TestResults/PricingService_TestResults.trx'  // Display PricingService test results
-                    junit '**/TestResults/PolicyService_TestResults.trx'  // Display PolicyService test results
-                    junit '**/TestResults/PaymentService_TestResults.trx'  // Display PaymentService test results
+                    junit 'PricingService.Test/TestResults/PricingService_TestResults.trx'  // Display PricingService test results
+                    junit 'PolicyService.Test/TestResults/PolicyService_TestResults.trx'  // Display PolicyService test results
+                    junit 'PaymentService.Test/TestResults/PaymentService_TestResults.trx'  // Display PaymentService test results
                 }
             }
         }
