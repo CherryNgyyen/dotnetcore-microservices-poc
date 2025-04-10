@@ -66,11 +66,14 @@ pipeline {
                     sh 'dotnet test PaymentService.Test/PaymentService.Test.csproj --configuration Release --no-build --logger "trx;LogFileName=PaymentService_TestResults.trx" --verbosity detailed'
 
                     // Publish the test results for each project using xUnit Plugin
-                    step([$class: 'XUnitBuilder', tools: [[$class: 'MSTestJunitHudsonTestType', pattern: '**/TestResults/*.trx']]])
+                    xunit([
+                        MSTest(deleteOutputFiles: true, failIfNotNew: true, pattern: '**/PricingService_TestResults.trx', skipNoTestFiles: false, stopProcessingIfError: true),
+                        MSTest(deleteOutputFiles: true, failIfNotNew: true, pattern: '**/PolicyService_TestResults.trx', skipNoTestFiles: false, stopProcessingIfError: true),
+                        MSTest(deleteOutputFiles: true, failIfNotNew: true, pattern: '**/PaymentService_TestResults.trx', skipNoTestFiles: false, stopProcessingIfError: true)
+                    ])
                 }
             }
         }
-
 
         stage('SonarQube Analysis') {
             steps {
