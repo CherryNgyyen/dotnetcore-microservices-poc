@@ -59,8 +59,8 @@ pipeline {
             steps {
                 script {
                     echo 'Running tests...'
-                    sh 'dotnet test DotNetMicroservicesPoc.sln --configuration Release --no-build --logger "trx;LogFileName=test_results.trx" --verbosity detailed'
-                    junit '**/TestResults/test_results.trx'  // Display .NET test results in Jenkins UI
+                    sh 'dotnet test DotNetMicroservicesPoc.sln --configuration Release --no-build --logger "trx;LogFileName=test_results.xml" --verbosity detailed'
+                    junit '**/TestResults/test_results.xml'  // Display .NET test results in Jenkins UI
                 }
             }
         }
