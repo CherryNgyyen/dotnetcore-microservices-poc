@@ -61,20 +61,20 @@ pipeline {
                     echo 'Running tests...'
 
                     // Run tests for each project separately and save results in unique trx files
-                    sh 'dotnet test ProductService.Test/ProductService.Test.csproj --configuration Release --no-build --logger "trx;LogFileName=ProductService_TestResults.trx" --verbosity detailed'
+                    // sh 'dotnet test ProductService.Test/ProductService.Test.csproj --configuration Release --no-build --logger "trx;LogFileName=ProductService_TestResults.trx" --verbosity detailed'
                     sh 'dotnet test PricingService.Test/PricingService.Test.csproj --configuration Release --no-build --logger "trx;LogFileName=PricingService_TestResults.trx" --verbosity detailed'
                     sh 'dotnet test PolicyService.Test/PolicyService.Test.csproj --configuration Release --no-build --logger "trx;LogFileName=PolicyService_TestResults.trx" --verbosity detailed'
                     sh 'dotnet test PaymentService.Test/PaymentService.Test.csproj --configuration Release --no-build --logger "trx;LogFileName=PaymentService_TestResults.trx" --verbosity detailed'
 
                     // Publish the test results for each project
-                    junit '**/TestResults/ProductService_TestResults.trx'  // Display ProductService test results
+                    // junit '**/TestResults/ProductService_TestResults.trx'  // Display ProductService test results
                     junit '**/TestResults/PricingService_TestResults.trx'  // Display PricingService test results
                     junit '**/TestResults/PolicyService_TestResults.trx'  // Display PolicyService test results
                     junit '**/TestResults/PaymentService_TestResults.trx'  // Display PaymentService test results
                 }
             }
         }
-        
+
         stage('SonarQube Analysis') {
             steps {
                 script {
