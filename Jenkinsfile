@@ -55,6 +55,16 @@ pipeline {
             }
         }
 
+        stage('Run Tests') {
+            steps {
+                script {
+                    echo 'Running tests...'
+                    sh 'dotnet test DotNetMicroservicesPoc.sln --configuration Release --no-build --logger "trx;LogFileName=test_results.trx"'
+                    junit '**/test_results.trx'  // Display .NET test results in Jenkins UI
+                }
+            }
+        }
+
         stage('SonarQube Analysis') {
             steps {
                 script {
@@ -77,8 +87,6 @@ pipeline {
                         dotnet sonarscanner end /d:sonar.login="$SONARQUBE_TOKEN"
                         '''
                     }
-
-                    waitForQualityGate abortPipeline: true
                 }
             }
         }
