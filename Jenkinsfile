@@ -13,7 +13,6 @@ pipeline {
         SONARQUBE_TOKEN = credentials('sonarqube-user-token')
         SONARQUBE_PROJECT_KEY = credentials('sonarqube-microservice-solution-project')
         DOTNET_VERSION = '8.0'
-        BRANCH_NAME = 'main'
         SONARQUBE_PROJECT_NAME = "dotnetcore-microservices-poc-${env.BRANCH_NAME ?: 'master'}"
     }
 
