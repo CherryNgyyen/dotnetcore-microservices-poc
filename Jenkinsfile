@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'mcr.microsoft.com/dotnet/sdk:8.0'
-            args '--network devops_tools_stack_service_network -v /tmp:/tmp'
+            args '-v /var/run/docker.sock:/var/run/docker.sock --network host -v /tmp:/tmp'
         }
     }
 
