@@ -9,7 +9,7 @@ pipeline {
     environment {
         JAVA_HOME = '/usr/lib/jvm/java-17-openjdk-amd64'
         PATH = "$JAVA_HOME/bin:$PATH"
-        SONARQUBE_SERVER = 'http://sonarqube:9000/sonarqube/'
+        SONARQUBE_SERVER = 'http://sonarqube-service:9000/sonarqube/'
         SONARQUBE_TOKEN = credentials('sonarqube-user-token')
         SONARQUBE_PROJECT_KEY = credentials('sonarqube-microservice-solution-project')
         DOTNET_VERSION = '8.0'
