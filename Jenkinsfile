@@ -127,9 +127,7 @@ pipeline {
 
     post {
         always {
-            container('dotnet') {
-                cleanWs()
-            }
+            cleanWs()
         }
     }
 }
