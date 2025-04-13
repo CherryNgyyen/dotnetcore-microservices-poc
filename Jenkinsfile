@@ -79,24 +79,22 @@ pipeline {
             steps {
                 script {
                     echo "Starting SonarQube analysis for project: ${env.SONARQUBE_PROJECT_NAME}..."
-                    withSonarQubeEnv('SonarQube') {
-                        sh '''
-                        # Install SonarScanner for .NET (if not already installed)
-                        dotnet tool install --global dotnet-sonarscanner
-                        
-                        # Add .NET Core SDK tools to PATH
-                        export PATH="$PATH:/root/.dotnet/tools"
-                        
-                        # Begin SonarQube analysis with dynamic project name
-                        dotnet sonarscanner begin /k:"$SONARQUBE_PROJECT_KEY" /d:sonar.host.url="$SONARQUBE_SERVER" /d:sonar.login="$SONARQUBE_TOKEN" /n:"$SONARQUBE_PROJECT_NAME"
-                        
-                        # Build the solution to trigger analysis
-                        dotnet build DotNetMicroservicesPoc.sln
-                        
-                        # End SonarQube analysis
-                        dotnet sonarscanner end /d:sonar.login="$SONARQUBE_TOKEN"
-                        '''
-                    }
+                    sh '''
+                    # Install SonarScanner for .NET (if not already installed)
+                    dotnet tool install --global dotnet-sonarscanner
+                    
+                    # Add .NET Core SDK tools to PATH
+                    export PATH="$PATH:/root/.dotnet/tools"
+                    
+                    # Begin SonarQube analysis with dynamic project name
+                    dotnet sonarscanner begin /k:"$SONARQUBE_PROJECT_KEY" /d:sonar.host.url="$SONARQUBE_SERVER" /d:sonar.login="$SONARQUBE_TOKEN" /n:"$SONARQUBE_PROJECT_NAME"
+                    
+                    # Build the solution to trigger analysis
+                    dotnet build DotNetMicroservicesPoc.sln
+                    
+                    # End SonarQube analysis
+                    dotnet sonarscanner end /d:sonar.login="$SONARQUBE_TOKEN"
+                    '''
                 }
             }
         }
