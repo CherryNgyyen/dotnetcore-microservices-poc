@@ -1,8 +1,20 @@
 pipeline {
     agent {
-        docker {
-            image 'mcr.microsoft.com/dotnet/sdk:8.0'
-            args '-v /var/run/docker.sock:/var/run/docker.sock --network host -v /tmp:/tmp'
+        kubernetes {
+            yaml """
+                apiVersion: v1
+                kind: Pod
+                metadata:
+                labels:
+                    app: dotnet-build
+                spec:
+                containers:
+                - name: dotnet
+                    image: mcr.microsoft.com/dotnet/sdk:8.0
+                    command:
+                    - cat
+                    tty: true
+            """
         }
     }
 
