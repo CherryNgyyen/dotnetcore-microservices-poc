@@ -100,14 +100,20 @@ spec:
                 container('dotnet') {
                     script {
                         echo "Starting SonarQube analysis for project: ${env.SONARQUBE_PROJECT_NAME}..."
-                        sh '''
-                        dotnet tool install --global dotnet-sonarscanner
-                        export PATH="$PATH:/root/.dotnet/tools"
+                        withSonarQubeEnv('SonarQube') {
+                            sh '''
+                            dotnet tool install --global dotnet-sonarscanner
+                            export PATH="$PATH:/root/.dotnet/tools"
 
-                        dotnet sonarscanner begin /k:"$SONARQUBE_PROJECT_KEY" /d:sonar.host.url="$SONARQUBE_SERVER" /d:sonar.login="$SONARQUBE_TOKEN" /n:"$SONARQUBE_PROJECT_NAME"
-                        dotnet build DotNetMicroservicesPoc.sln
-                        dotnet sonarscanner end /d:sonar.login="$SONARQUBE_TOKEN"
-                        '''
+                            dotnet sonarscanner begin /k:"$SONARQUBE_PROJECT_KEY" /d:sonar.host.url="$SONARQUBE_SERVER" /d:sonar.login="$SONARQUBE_TOKEN" /n:"$SONARQUBE_PROJECT_NAME"
+                            dotnet build DotNetMicroservicesPoc.sln
+                            dotnet sonarscanner end /d:sonar.login="$SONARQUBE_TOKEN"
+                            '''
+                        }
+
+                        timeout(time: 60, unit: 'MINUTES') {
+                            waitForQualityGate abortPipeline: true
+                        }
                     }
                 }
             }
