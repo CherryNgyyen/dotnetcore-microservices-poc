@@ -28,6 +28,13 @@ spec:
         SONARQUBE_PROJECT_NAME = "dotnetcore-microservices-poc-${env.BRANCH_NAME ?: 'master'}"
     }
 
+    options {
+        buildDiscarder(logRotator(
+            numToKeepStr: '5',
+            artifactDaysToKeepStr: '10'
+        ))
+    }
+
     stages {
         stage('Install Java') {
             steps {
@@ -49,6 +56,15 @@ spec:
             steps {
                 container('dotnet') {
                     checkout scm
+                }
+            }
+        }
+
+        stage('Set Build Name') {
+            steps {
+                script {
+                    def timestamp = new Date().format("yyyy.MM.dd.HHmm")
+                    currentBuild.displayName = "${timestamp}"
                 }
             }
         }
