@@ -24,7 +24,6 @@ spec:
         SONARQUBE_SERVER = 'http://sonarqube-service:9000/sonarqube/'
         SONARQUBE_TOKEN = credentials('sonarqube-user-token')
         SONARQUBE_PROJECT_KEY = credentials('sonarqube-microservice-solution-project')
-        SONARQUBE_USER = "admin"
         DOTNET_VERSION = '8.0'
         SONARQUBE_PROJECT_NAME = "dotnetcore-microservices-poc-${env.BRANCH_NAME ?: 'master'}"
     }
@@ -103,27 +102,14 @@ spec:
                         echo "Starting SonarQube analysis for project: ${env.SONARQUBE_PROJECT_NAME}..."
                         withSonarQubeEnv('SonarQube') {
                             sh '''
-                            apt-get update -y
-                            apt-get install -y jq
-
                             dotnet tool install --global dotnet-sonarscanner
                             export PATH="$PATH:/root/.dotnet/tools"
 
                             dotnet sonarscanner begin /k:"$SONARQUBE_PROJECT_KEY" /d:sonar.host.url="$SONARQUBE_SERVER" /d:sonar.login="$SONARQUBE_TOKEN" /n:"$SONARQUBE_PROJECT_NAME"
                             dotnet build DotNetMicroservicesPoc.sln
-
-                            TASK_ID=$(curl -u $SONARQUBE_USER:$SONARQUBE_TOKEN "http://sonarqube-service:9000/api/ce/task?key=$SONARQUBE_PROJECT_KEY" | jq -r '.task.id')
-                            echo "Task ID: $TASK_ID"
-
                             dotnet sonarscanner end /d:sonar.login="$SONARQUBE_TOKEN"
                             '''
                         }
-
-                        echo "Checking SonarQube task status for Task ID: $TASK_ID..."
-                        sh '''
-                        curl -u $SONARQUBE_USER:$SONARQUBE_TOKEN "http://sonarqube-service:9000/api/ce/task?id=$TASK_ID"
-                        '''
-                        
                         timeout(time: 60, unit: 'MINUTES') {
                             waitForQualityGate abortPipeline: true
                         }
