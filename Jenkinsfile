@@ -106,6 +106,8 @@ spec:
                             // MSTest(deleteOutputFiles: true, failIfNotNew: true, pattern: '**/PolicyService_TestResults.trx', skipNoTestFiles: false, stopProcessingIfError: true),
                             MSTest(deleteOutputFiles: true, failIfNotNew: true, pattern: '**/PaymentService_TestResults.trx', skipNoTestFiles: false, stopProcessingIfError: true)
                         ])
+                        archiveArtifacts artifacts: '**/PricingService_TestResults.trx'
+                        archiveArtifacts artifacts: '**/PaymentService_TestResults.trx'
                     }
                 }
             }
