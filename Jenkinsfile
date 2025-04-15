@@ -110,10 +110,7 @@ spec:
                             dotnet sonarscanner end /d:sonar.login="$SONARQUBE_TOKEN"
                             '''
                         }
-
-                        timeout(time: 60, unit: 'MINUTES') {
-                            waitForQualityGate abortPipeline: true
-                        }
+                        waitForQualityGate abortPipeline: true
                     }
                 }
             }
