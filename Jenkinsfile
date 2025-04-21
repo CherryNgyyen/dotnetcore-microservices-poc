@@ -136,16 +136,16 @@ spec:
             }
         }
 
-        stage('Publish') {
-            steps {
-                container('dotnet') {
-                    script {
-                        echo 'Publishing solution...'
-                        sh 'dotnet publish DotNetMicroservicesPoc.sln --configuration Release --no-build'
-                    }
-                }
-            }
-        }
+        // stage('Publish') {
+        //     steps {
+        //         container('dotnet') {
+        //             script {
+        //                 echo 'Publishing solution...'
+        //                 sh 'dotnet publish DotNetMicroservicesPoc.sln --configuration Release --no-build'
+        //             }
+        //         }
+        //     }
+        // }
     }
 
     post {
