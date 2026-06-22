@@ -16,6 +16,13 @@ public class UserController : ControllerBase
         this.authService = authService;
     }
 
+    [HttpGet("health")]
+    [AllowAnonymous]
+    public IActionResult Health()
+    {
+        return Ok("OK");
+    }
+
     [AllowAnonymous]
     [HttpPost]
     public IActionResult Post([FromBody] AuthRequest user)
