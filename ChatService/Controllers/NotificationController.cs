@@ -18,6 +18,13 @@ public class NotificationController : ControllerBase
         this.bus = bus;
     }
 
+    [HttpGet("health")]
+    [AllowAnonymous]
+    public IActionResult Health()
+    {
+        return Ok("OK");
+    }
+
     [HttpPost]
     public async Task<IActionResult> SendNotification([FromBody] SendNotificationCommand cmd)
     {
