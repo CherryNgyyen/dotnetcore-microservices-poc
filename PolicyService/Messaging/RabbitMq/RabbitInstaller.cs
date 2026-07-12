@@ -10,7 +10,7 @@ public static class RabbitInstaller
 {
     public static IServiceCollection AddRabbitListeners(this IServiceCollection services)
     {
-        var host = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true" ? "rabbit" : "localhost";
+        var host = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true" ? "rabbitmq-service" : "localhost";
         var connectionStr = $"host={host}:5672;username=guest;password=guest";
         var bus = RabbitHutch.CreateBus(connectionStr);
         bus.Advanced.ExchangeDeclare("lab-dotnet-micro", ExchangeType.Topic);
