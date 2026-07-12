@@ -37,14 +37,6 @@ public static class NHibernateInstaller
 
         cfg.AddAssembly(typeof(NHibernateInstaller).Assembly);
 
-        Console.WriteLine("=== MAPPINGS ===");
-        Console.WriteLine($"Count: {cfg.ClassMappings.Count}");
-
-        foreach (var m in cfg.ClassMappings)
-        {
-            Console.WriteLine($"{m.EntityName} => {m.Table.Name}");
-        }
-
         services.AddSingleton(cfg.BuildSessionFactory());
 
         services.AddScoped(s => s.GetService<ISessionFactory>().OpenSession());
