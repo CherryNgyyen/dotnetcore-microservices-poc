@@ -1,13 +1,14 @@
-﻿using System.Data;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using NHibernate;
 using NHibernate.Bytecode;
 using NHibernate.Cfg;
 using NHibernate.Connection;
 using NHibernate.Dialect;
 using NHibernate.Driver;
-using PolicyService.Domain;
 using NHibernate.Tool.hbm2ddl;
+using PolicyService.Domain;
+using System;
+using System.Data;
 
 namespace PolicyService.DataAccess.NHibernate;
 
@@ -36,9 +37,13 @@ public static class NHibernateInstaller
 
         cfg.AddAssembly(typeof(NHibernateInstaller).Assembly);
 
-        var update = new SchemaUpdate(cfg);
+        Console.WriteLine("=== MAPPINGS ===");
+        Console.WriteLine($"Count: {cfg.ClassMappings.Count}");
 
-        update.Execute(false, true);
+        foreach (var m in cfg.ClassMappings)
+        {
+            Console.WriteLine($"{m.EntityName} => {m.Table.Name}");
+        }
 
         services.AddSingleton(cfg.BuildSessionFactory());
 
