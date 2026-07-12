@@ -7,6 +7,7 @@ using NHibernate.Connection;
 using NHibernate.Dialect;
 using NHibernate.Driver;
 using PolicyService.Domain;
+using NHibernate.Tool.hbm2ddl;
 
 namespace PolicyService.DataAccess.NHibernate;
 
@@ -34,6 +35,10 @@ public static class NHibernateInstaller
         cfg.Cache(c => c.UseQueryCache = false);
 
         cfg.AddAssembly(typeof(NHibernateInstaller).Assembly);
+
+        var update = new SchemaUpdate(cfg);
+
+        update.Execute(false, true);
 
         services.AddSingleton(cfg.BuildSessionFactory());
 
