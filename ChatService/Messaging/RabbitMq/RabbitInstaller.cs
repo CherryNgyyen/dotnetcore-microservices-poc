@@ -1,19 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using EasyNetQ;
+﻿using EasyNetQ;
 using EasyNetQ.Topology;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
 
 namespace ChatService.Messaging.RabbitMq;
 
 public static class RabbitInstaller
 {
-    public static IServiceCollection AddRabbitListeners(this IServiceCollection services)
+    public static IServiceCollection AddRabbitListeners(this IServiceCollection services, IConfiguration configuration)
     {
-        var host = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true" ? "rabbitmq-service" : "localhost";
-        var connectionStr = $"host={host}:5672;username=guest;password=guest";
-        var bus = RabbitHutch.CreateBus(connectionStr);
+        var rabbitSettings = new RabbitMqSettings();
+        configuration.GetSection("RabbitMQ").Bind(rabbitSettings);
+        var connectionString = rabbitSettings.ConnectionString;
+        var bus = RabbitHutch.CreateBus(connectionString);
         bus.Advanced.ExchangeDeclare("lab-dotnet-micro", ExchangeType.Topic);
         services.AddSingleton(bus);
         
