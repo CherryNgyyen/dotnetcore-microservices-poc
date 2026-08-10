@@ -53,7 +53,7 @@ public class Program
                     .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
                     .AddYamlFile("config/appsettings.yaml", optional: false, reloadOnChange: true)
                     .AddYamlFile($"config/appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.yaml", optional: true, reloadOnChange: true)
-                    .AddJsonFile($"config/ocelot.{hostingContext.HostingEnvironment.EnvironmentName}.json", true, true)
+                    .AddJsonFile($"config/ocelot.json", true, true)
                     .AddEnvironmentVariables();
             })
             .ConfigureServices((context, s) =>
