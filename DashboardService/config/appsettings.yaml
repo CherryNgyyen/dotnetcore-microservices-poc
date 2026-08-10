@@ -13,7 +13,7 @@ Spring:
 Eureka:
   Client:
     ShouldRegisterWithEureka: false
-    ServiceUrl": http://eureka-server-service:8761/eureka/
+    ServiceUrl: http://eureka-server-service:8761/eureka/
 
   Instance:
     Port: 5035
