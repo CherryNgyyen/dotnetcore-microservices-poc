@@ -12,9 +12,7 @@ public static class RabbitInstaller
 {
     public static IServiceCollection AddRabbitListeners(this IServiceCollection services, IConfiguration configuration)
     {
-        var rabbitSettings = new RabbitMqSettings();
-        configuration.GetSection("RabbitMQ").Bind(rabbitSettings);
-        var connectionString = rabbitSettings.ConnectionString;
+        var connectionString = configuration["RabbitMQ:ConnectionString"];
         var bus = RabbitHutch.CreateBus(connectionString);
         bus.Advanced.ExchangeDeclare("lab-dotnet-micro", ExchangeType.Topic);
         services.AddSingleton(bus);

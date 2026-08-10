@@ -84,7 +84,7 @@ public class Startup
 
         services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
 
-        services.AddRabbitListeners();
+        services.AddRabbitListeners(Configuration);
         
         services.AddSwaggerGen();
     }

@@ -6,6 +6,8 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.6" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="8.0.0" />
+        <PackageReference Include="NetEscapades.Configuration.Yaml" Version="3.1.0" />
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.6.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.6" />
         <PackageReference Include="MediatR" Version="12.3.0" />
@@ -17,6 +19,18 @@
     <ItemGroup>
         <ProjectReference Include="..\ChatService.Api\ChatService.Api.csproj" />
         <ProjectReference Include="..\PolicyService.Api\PolicyService.Api.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="config\appsettings.Development.yaml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="config\appsettings.yaml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="config\log4net.xml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>
