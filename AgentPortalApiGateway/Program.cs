@@ -69,8 +69,6 @@ public class Program
                     })
                     .AddJwtBearer("ApiSecurity", x =>
                     {
-                        var appSettings = new AppSettings();
-                        var key = Encoding.ASCII.GetBytes(appSettings.Secret);
                         x.RequireHttpsMetadata = false;
                         x.SaveToken = true;
                         x.TokenValidationParameters = new TokenValidationParameters
