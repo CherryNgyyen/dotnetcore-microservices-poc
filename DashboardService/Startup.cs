@@ -32,7 +32,7 @@ public class Startup
         services.AddMediatR(opts => opts.RegisterServicesFromAssemblyContaining<Startup>());
         services.AddElasticSearch(Configuration.GetConnectionString("ElasticSearchConnection"));
         services.AddSingleton<IPolicyRepository, ElasticPolicyRepository>();
-        services.AddRabbitListeners(Configuration.GetSection("RabbitMqOptions").Get<RabbitMqOptions>());
+        services.AddRabbitListeners(Configuration.GetSection("RabbitMQ").Get<RabbitMqSettings>());
         services.AddInitialSalesData();
         services.AddSwaggerGen();
     }
