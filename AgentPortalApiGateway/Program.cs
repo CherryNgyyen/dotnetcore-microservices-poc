@@ -10,6 +10,7 @@ using Ocelot.Cache.CacheManager;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 using Ocelot.Provider.Eureka;
+using Microsoft.Extensions.Logging;
 
 namespace AgentPortalApiGateway;
 
@@ -25,15 +26,18 @@ public class Program
         var key = Encoding.ASCII.GetBytes("THIS_IS_A_RANDOM_SECRET_2e7a1e80-16ee-4e52-b5c6-5e8892453459");
 
         return WebHost.CreateDefaultBuilder(args)
+            .ConfigureLogging(logging =>
+            {
+                logging.ClearProviders();
+                logging.AddLog4Net("config/log4net.xml");
+            })
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
                 config
                     .SetBasePath(hostingContext.HostingEnvironment.ContentRootPath)
-                    .AddJsonFile("appsettings.json", true, true)
-                    .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", true,
-                        true)
-                    .AddJsonFile("ocelot.json", false, false)
-                    .AddJsonFile($"ocelot.{hostingContext.HostingEnvironment.EnvironmentName}.json", true, true)
+                    .AddYamlFile("config/appsettings.yaml", optional: false, reloadOnChange: true)
+                    .AddYamlFile($"config/appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.yaml", optional: true, reloadOnChange: true)
+                    .AddJsonFile($"config/ocelot.{hostingContext.HostingEnvironment.EnvironmentName}.json", true, true)
                     .AddEnvironmentVariables();
             })
             .ConfigureServices(s =>
