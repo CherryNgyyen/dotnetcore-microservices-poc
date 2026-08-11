@@ -1,0 +1,12 @@
+AllowedHosts: "*"
+
+ConnectionStrings:
+  DefaultConnection: "THIS IS A SECRET"
+  PgConnection: "User ID=lab_user;Password=lab_pass;Database=lab_netmicro_payments;Host=localhost;Port=5432"
+
+RabbitMQ:
+  ConnectionString: "host=localhost:5672;username=guest;password=guest"
+
+BackgroundJobs:
+  HangfireConnectionStringName: "User ID=lab_user;Password=lab_pass;Database=lab_netmicro_jobs;Host=localhost;Port=5432"
+  InPaymentFileFolder: "/mnt/bigdisk/dotnetpoc/testcases"
