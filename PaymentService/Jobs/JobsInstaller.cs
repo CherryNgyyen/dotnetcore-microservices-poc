@@ -15,11 +15,6 @@ public static class JobsInstaller
         services.AddHangfire(config =>
         {
             config.UsePostgreSqlStorage(jobsConfig.HangfireConnectionStringName);
-            services.AddHangfire(config =>
-            {
-                config.UsePostgreSqlStorage(
-                    jobsConfig.HangfireConnectionStringName);
-            });
         });
         services.AddScoped<InPaymentRegistrationJob, InPaymentRegistrationJob>();
         services.AddHangfireServer();
