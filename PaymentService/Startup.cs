@@ -38,7 +38,7 @@ public class Startup
         services.AddMediatR(opts => opts.RegisterServicesFromAssemblyContaining<Startup>());
         services.AddLogingBehaviour();
         services.AddSingleton<PolicyAccountNumberGenerator>();
-        services.AddRabbitListeners(Configuration);
+        services.AddRabbitListeners(Configuration.GetSection("RabbitMQ").Get<RabbitMqSettings>());
         services.AddBackgroundJobs(Configuration.GetSection("BackgroundJobs").Get<BackgroundJobsConfig>());
         services.AddSwaggerGen();
     }

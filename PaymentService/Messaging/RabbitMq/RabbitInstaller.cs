@@ -10,9 +10,9 @@ namespace PaymentService.Messaging.RabbitMq;
 
 public static class RabbitInstaller
 {
-    public static IServiceCollection AddRabbitListeners(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddRabbitListeners(this IServiceCollection services, RabbitMqSettings options)
     {
-        var connectionString = configuration["RabbitMQ:ConnectionString"];
+        var connectionString = options.ConnectionString;
         var bus = RabbitHutch.CreateBus(connectionString);
         bus.Advanced.ExchangeDeclare("lab-dotnet-micro", ExchangeType.Topic);
         services.AddSingleton(bus);
