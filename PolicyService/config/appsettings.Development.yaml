@@ -1,0 +1,7 @@
+Logging:
+  IncludeScopes: true
+  LogLevel:
+    Default: Trace
+    System: Information
+    Microsoft: Information
+    Newtonsoft: Information

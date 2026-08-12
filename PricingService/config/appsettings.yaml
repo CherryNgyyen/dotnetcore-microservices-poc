@@ -1,0 +1,17 @@
+AllowedHosts: "*"
+
+ConnectionStrings:
+  PgConnection: "User ID=lab_user;Password=lab_pass;Database=lab_netmicro_pricing;Host=localhost;Port=5432"
+
+Spring:
+  Application:
+    Name: "PricingService"
+
+Eureka:
+  Client:
+    ShouldRegisterWithEureka: false
+    ServiceUrl: http://eureka-server-service:8761/eureka/
+
+  Instance:
+    Port: 5040
+    HostName: "localhost"

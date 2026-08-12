@@ -29,7 +29,7 @@ public class Startup
             .AddNewtonsoftJson();
         services.AddMediatR(opts => opts.RegisterServicesFromAssemblyContaining<Startup>());
         services.AddElasticSearch(Configuration.GetConnectionString("ElasticSearchConnection"));
-        services.AddRabbitListeners();
+        services.AddRabbitListeners(Configuration.GetSection("RabbitMQ").Get<RabbitMqSettings>());
         services.AddSwaggerGen();
     }
 

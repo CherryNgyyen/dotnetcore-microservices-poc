@@ -1,0 +1,22 @@
+AllowedHosts: "*"
+
+RabbitMQ:
+  ConnectionString: "host=localhost:5672;username=guest;password=guest"
+
+ConnectionStrings:
+  PgConnection: "User ID=lab_user;Password=lab_pass;Database=lab_netmicro_policy;Host=localhost;Port=5432"
+
+PricingServiceUri: "http://PricingService/api/pricing"
+
+Spring:
+  Application:
+    Name: "PolicyService"
+
+Eureka:
+  Client:
+    ShouldRegisterWithEureka: false
+    ServiceUrl: http://eureka-server-service:8761/eureka/
+
+  Instance:
+    Port: 5050
+    HostName: "localhost"

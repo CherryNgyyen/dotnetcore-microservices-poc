@@ -1,7 +1,6 @@
 AllowedHosts: "*"
 
 ConnectionStrings:
-  DefaultConnection: "THIS IS A SECRET"
   PgConnection: "User ID=lab_user;Password=lab_pass;Database=lab_netmicro_payments;Host=localhost;Port=5432"
 
 RabbitMQ:

@@ -10,6 +10,8 @@
         <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.6" />
         <PackageReference Include="GlobalExceptionHandler" Version="4.0.2" />
         <PackageReference Include="MediatR" Version="12.3.0" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="8.0.0" />
+        <PackageReference Include="NetEscapades.Configuration.Yaml" Version="3.1.0" />
         <PackageReference Include="Steeltoe.Discovery.ClientBase" Version="3.2.7" />
         <PackageReference Include="Steeltoe.Discovery.Eureka" Version="3.2.7" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.6" />
@@ -19,6 +21,18 @@
     <ItemGroup>
         <ProjectReference Include="..\PolicySearchService.Api\PolicySearchService.Api.csproj" />
         <ProjectReference Include="..\PolicyService.Api\PolicyService.Api.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="config\appsettings.Development.yaml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="config\appsettings.yaml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="config\log4net.xml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>

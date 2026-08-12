@@ -22,6 +22,8 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.6" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.6" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.6" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="8.0.0" />
+        <PackageReference Include="NetEscapades.Configuration.Yaml" Version="3.1.0" />
 
         <PackageReference Include="Steeltoe.Discovery.ClientBase" Version="3.2.7" />
         <PackageReference Include="Steeltoe.Discovery.Eureka" Version="3.2.7" />
@@ -32,6 +34,18 @@
 
     <ItemGroup>
         <ProjectReference Include="..\ProductService.Api\ProductService.Api.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="config\appsettings.Development.yaml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="config\appsettings.yaml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="config\log4net.xml">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>

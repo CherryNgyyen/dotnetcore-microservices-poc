@@ -29,7 +29,7 @@ public class Startup
         services.AddControllers()
             .AddNewtonsoftJson(opt => { opt.SerializerSettings.TypeNameHandling = TypeNameHandling.Auto; });
 
-        services.AddMarten(Configuration.GetConnectionString("DefaultConnection"));
+        services.AddMarten(Configuration.GetConnectionString("PgConnection"));
         services.AddPricingDemoInitializer();
         services.AddMediatR(options => options.RegisterServicesFromAssemblyContaining<Program>());
         services.AddLoggingBehavior();

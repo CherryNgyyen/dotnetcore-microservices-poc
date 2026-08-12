@@ -27,8 +27,8 @@ public class Startup
             .AddNewtonsoftJson();
         services.AddMediatR(opts => opts.RegisterServicesFromAssemblyContaining<Startup>());
         services.AddPricingRestClient();
-        services.AddNHibernate(Configuration.GetConnectionString("DefaultConnection"));
-        services.AddRabbitListeners();
+        services.AddNHibernate(Configuration.GetConnectionString("PgConnection"));
+        services.AddRabbitListeners(Configuration.GetSection("RabbitMQ").Get<RabbitMqSettings>());
         services.AddSwaggerGen();
     }
 

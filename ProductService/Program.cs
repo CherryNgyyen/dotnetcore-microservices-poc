@@ -8,6 +8,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+//Disable default log in .net
+builder.Logging.ClearProviders();
+
+//Enable log4net
+builder.Logging.AddLog4Net("config/log4net.xml");
+
+builder.Configuration.AddYamlFile("config/appsettings.yaml", optional: false, reloadOnChange: true);
+
 builder.Services
     .AddControllers()
     .AddNewtonsoftJson(options =>

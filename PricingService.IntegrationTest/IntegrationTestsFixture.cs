@@ -23,30 +23,41 @@ public class IntegrationTestsFixture : IAsyncLifetime
     {
         await pgSqlContainer.StartAsync();
 
-        var hostBuilder = Program.CreateWebHostBuilder(Array.Empty<string>())
-            .ConfigureServices((Action<HostBuilderContext, IServiceCollection>)SetupServices)
+        var hostBuilder = Program.CreateHostBuilder(Array.Empty<string>())
+            .ConfigureServices((ctx, services) =>
+            {
+                SetupServices(ctx, services);
+            })
             .ConfigureAppConfiguration((ctx, configBuilder) =>
             {
-                configBuilder.AddInMemoryCollection(new Dictionary<string, string>
+                configBuilder.AddInMemoryCollection(new Dictionary<string, string?>
                 {
-                    ["ConnectionStrings:DefaultConnection"] = pgSqlContainer.GetConnectionString()
+                    ["ConnectionStrings:PgConnection"] = pgSqlContainer.GetConnectionString()
                 });
             });
 
         SystemUnderTest = new AlbaHost(hostBuilder);
+
+        await SetupData();
     }
 
     public async Task DisposeAsync()
     {
-        await SystemUnderTest.DisposeAsync();
+        if (SystemUnderTest != null)
+        {
+            await SystemUnderTest.DisposeAsync();
+        }
+
         await pgSqlContainer.DisposeAsync();
     }
 
-    protected virtual void SetupServices(HostBuilderContext ctx, IServiceCollection services)
+    protected virtual void SetupServices(
+        HostBuilderContext ctx,
+        IServiceCollection services)
     {
     }
 
-    protected Task SetupData()
+    protected virtual Task SetupData()
     {
         return Task.CompletedTask;
     }

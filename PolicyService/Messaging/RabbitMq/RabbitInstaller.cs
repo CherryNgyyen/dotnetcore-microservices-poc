@@ -8,11 +8,10 @@ namespace PolicyService.Messaging.RabbitMq;
 
 public static class RabbitInstaller
 {
-    public static IServiceCollection AddRabbitListeners(this IServiceCollection services)
+    public static IServiceCollection AddRabbitListeners(this IServiceCollection services, RabbitMqSettings options)
     {
-        var host = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true" ? "rabbitmq-service" : "localhost";
-        var connectionStr = $"host={host}:5672;username=guest;password=guest";
-        var bus = RabbitHutch.CreateBus(connectionStr);
+        var connectionString = options.ConnectionString;
+        var bus = RabbitHutch.CreateBus(connectionString);
         bus.Advanced.ExchangeDeclare("lab-dotnet-micro", ExchangeType.Topic);
         services.AddSingleton(bus);
         

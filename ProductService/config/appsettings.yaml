@@ -1,0 +1,17 @@
+Settings:
+  UseInMemoryDatabase: true
+
+AllowedHosts: "*"
+
+Spring:
+  Application:
+    Name: "ProductService"
+
+Eureka:
+  Client:
+    ShouldRegisterWithEureka: false
+    ServiceUrl: http://eureka-server-service:8761/eureka/
+
+  Instance:
+    Port: 5030
+    HostName: "localhost"
